@@ -1,16 +1,25 @@
 #!/bin/sh
 
+set -e
+bpdir=$(cd $(dirname $(dirname $0)); pwd)
+mkdir -p "$1" "$2"
+build=$(cd "$1/" && pwd)
+test -z ${build} && exit
+cache=$(cd "$2/" && pwd)
+
 indent() {
   sed -u 's/^/       /'
 }
 
-echo "-----> Found a hello.txt"
+BRANCH=$(git name-rev HEAD | awk '{print $2}')
+GIT_REL=$(git describe --always --tags `git log -n 1 --pretty=format:%h .`)
+GIT_NAME=otp_$(git log -n 1 --pretty=format:%f)
+REL_DIR=${build}/release/${GIT_NAME}
 
-# if hello.txt is empty, abort the build
-if [ ! -s $1/hello.txt ]; then
-  echo "hello.txt was empty" | indent
-  exit 1
-fi
+echo "-----> Found Erlang/OTP ${BRANCH} ${GIT_REL} -- ${GIT_NAME}"
 
-# replace hello with goodbye in a new file
-cat $1/hello.txt | sed -e "s/[Hh]ello/Goodbye/g" > $1/goodbye.txt
+mkdir -p ${REL_DIR}
+
+cd ${build}
+echo "-----> Building Erlang/OTP => release/${GIT_NAME}"
+./otp_build all -a ${REL_DIR} | indent
