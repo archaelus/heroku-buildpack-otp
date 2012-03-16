@@ -1,26 +1,19 @@
 #!/bin/sh
 
 set -e
-bpdir=$(cd $(dirname $(dirname $0)); pwd)
-mkdir -p "$1" "$2"
-build=$(cd "$1/" && pwd)
-test -z ${build} && exit
-cache=$(cd "$2/" && pwd)
 
 indent() {
   sed -u 's/^/       /'
 }
 
-cd ${build}
 BRANCH=$(git name-rev HEAD | awk '{print $2}')
 GIT_REL=$(git describe --always --tags `git log -n 1 --pretty=format:%h .`)
 GIT_NAME=otp_$(git log -n 1 --pretty=format:%f)
-REL_DIR=${build}/release/${GIT_NAME}
+REL_DIR=release/${GIT_NAME}
 
 echo "-----> Found Erlang/OTP ${BRANCH} ${GIT_REL} -- ${GIT_NAME}"
 
 mkdir -p ${REL_DIR}
 
-cd ${build}
 echo "-----> Building Erlang/OTP => release/${GIT_NAME}"
 ./otp_build all -a ${REL_DIR} | indent
