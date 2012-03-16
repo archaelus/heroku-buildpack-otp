@@ -2,6 +2,13 @@
 
 set -e
 
+echo "-----> Testing Erlang/OTP build dir"
+if [ -d .git ]; then
+echo "-------> Git directory found"
+else
+echo "-------> Git directory not found"
+fi
+
 indent() {
   sed -u 's/^/       /'
 }
