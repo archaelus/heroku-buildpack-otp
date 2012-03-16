@@ -11,6 +11,8 @@ indent() {
   sed -u 's/^/       /'
 }
 
+cd ${build}
+unset GIT_DIR
 BRANCH=$(git name-rev HEAD | awk '{print $2}')
 GIT_REL=$(git describe --always --tags `git log -n 1 --pretty=format:%h .`)
 GIT_NAME=otp_$(git log -n 1 --pretty=format:%f)
