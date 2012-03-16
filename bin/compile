@@ -17,12 +17,16 @@ else
 echo "-------> Git directory not found"
 fi
 
-echo $(git --version)
+echo "-----> bpdir: ${bpdir}"
+echo "-----> build: ${build}"
+echo "-----> cache: ${cache}"
 
 indent() {
   sed -u 's/^/       /'
 }
 
+GIT_DIR=${bpdir}
+cd ${build}
 BRANCH=$(git name-rev HEAD | awk '{print $2}')
 GIT_REL=$(git describe --always --tags `git log -n 1 --pretty=format:%h .`)
 GIT_NAME=otp_$(git log -n 1 --pretty=format:%f)
