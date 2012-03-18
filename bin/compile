@@ -20,6 +20,11 @@ REL_DIR=${build}/release
 
 mkdir -p ${REL_DIR}
 
-echo "-----> Building Erlang/OTP => release/${GIT_NAME}"
-./otp_build all -a ${REL_DIR} | indent
+for i in asn1 common_test cosEvent cosEventDomain cosFileTransfer cosNotification cosProperty cosTime cosTransactions diameter erl_docgen et gs ic inviso jinterface megaco observer odbc orber otp_mibs percept test_server wx; do
+  touch lib/${i}/SKIP
+  echo "-------> Disabling ${i}"
+done
+
+echo "-----> Building Erlang/OTP"
+./otp_build all -a ${REL_DIR} 2>&1 | indent
 echo "---> done"
