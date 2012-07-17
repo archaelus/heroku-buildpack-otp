@@ -31,4 +31,4 @@ echo "---> done"
 
 echo "-----> Cleaning up release"
 ls -1 -A -I otp | xargs rm -vrf
-echo "-----> done
+echo "-----> done"
