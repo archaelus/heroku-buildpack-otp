@@ -16,7 +16,7 @@ indent() {
 }
 
 cd ${build}
-REL_DIR=${build}/release
+REL_DIR=${build}/otp
 
 mkdir -p ${REL_DIR}
 
