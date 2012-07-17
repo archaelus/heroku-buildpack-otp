@@ -20,7 +20,7 @@ REL_DIR=${build}/otp
 
 mkdir -p ${REL_DIR}
 
-for i in common_test diameter erl_docgen et gs inviso jinterface megaco observer odbc percept test_server wx; do
+for i in jinterface megaco; do
   touch lib/${i}/SKIP
   echo "-------> Disabling ${i}"
 done
