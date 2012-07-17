@@ -28,3 +28,7 @@ done
 echo "-----> Building Erlang/OTP"
 ./otp_build all -a ${REL_DIR} 2>&1 | indent
 echo "---> done"
+
+echo "-----> Cleaning up release"
+ls -1 -A -I otp | xargs rm -vrf
+echo "-----> done
