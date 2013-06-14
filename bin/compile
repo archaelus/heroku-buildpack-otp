@@ -26,7 +26,8 @@ for i in jinterface megaco; do
 done
 
 echo "-----> Building Erlang/OTP"
-./otp_build all -a ${REL_DIR} 2>&1 | indent
+./otp_build setup -a --enable-lock-counter | indent
+./otp_build release -a ${REL_DIR} 2>&1 | indent
 echo "---> done"
 
 echo "-----> Cleaning up release"
