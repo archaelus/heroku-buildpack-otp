@@ -25,7 +25,7 @@ for i in jinterface megaco; do
   echo "-------> Disabling ${i}"
 done
 
-echo "-----> Building Erlang/OTP"
+echo "-----> Building Erlang/OTP for ${STACK}"
 ./otp_build all -a ${REL_DIR} 2>&1 | indent
 echo "---> done"
 
